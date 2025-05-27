@@ -1,26 +1,30 @@
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import React from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { StockData } from '../types';
 
 type StockPerformanceProps = {
   data: StockData[];
 };
 
+const COLORS = ['#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899'];
+
 const StockPerformance = ({ data }: StockPerformanceProps) => {
+  if (data.length === 0) return null;
+
+  // Get keys excluding 'date' for dynamic lines
+  const stockKeys = Object.keys(data[0]).filter((key) => key !== 'date');
+
   return (
     <div className="h-[250px]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={data}
-          margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 0,
+            bottom: 5,
+          }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
           <XAxis
@@ -43,25 +47,17 @@ const StockPerformance = ({ data }: StockPerformanceProps) => {
             labelStyle={{ color: '#f9fafb' }}
           />
           <Legend />
-          <Line
-            type="monotone"
-            dataKey="TSMC"
-            stroke="#3B82F6"
-            activeDot={{ r: 8 }}
-            strokeWidth={2}
-          />
-          <Line
-            type="monotone"
-            dataKey="Samsung"
-            stroke="#EF4444"
-            strokeWidth={2}
-          />
-          <Line
-            type="monotone"
-            dataKey="Tencent"
-            stroke="#10B981"
-            strokeWidth={2}
-          />
+          {stockKeys.map((key, index) => (
+            <Line
+              key={key}
+              type="monotone"
+              dataKey={key}
+              stroke={COLORS[index % COLORS.length]}
+              strokeWidth={2}
+              activeDot={{ r: 8 }}
+              dot={false}
+            />
+          ))}
         </LineChart>
       </ResponsiveContainer>
     </div>
