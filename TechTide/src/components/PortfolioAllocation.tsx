@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { AllocationData } from '../types';
 
 type PortfolioAllocationProps = {
@@ -28,7 +28,7 @@ const PortfolioAllocation = ({ data }: PortfolioAllocationProps) => {
             ))}
           </Pie>
           <Tooltip
-            formatter={(value) => [`${value}%`, 'Allocation']}
+            formatter={(value: number) => [`${value}`, 'Value']}
             contentStyle={{ 
               backgroundColor: '#1f2937', 
               borderColor: '#374151',
