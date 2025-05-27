@@ -1,15 +1,5 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  ReferenceLine,
-  Cell,
-} from 'recharts';
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { EarningsData } from '../types';
 
 type EarningsSurprisesProps = {
@@ -17,17 +7,17 @@ type EarningsSurprisesProps = {
 };
 
 const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
-  const coloredData = data.map(item => ({
-    ...item,
-    fill: item.surprise >= 0 ? '#10B981' : '#EF4444',
-  }));
-
   return (
     <div className="h-[300px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          data={coloredData}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
           <XAxis
@@ -47,7 +37,7 @@ const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
             }}
           />
           <Tooltip
-            formatter={value => [`${value}%`, 'Earnings Surprise']}
+            formatter={(value: number) => [`${value}%`, 'Earnings Surprise']}
             contentStyle={{
               backgroundColor: '#1f2937',
               borderColor: '#374151',
@@ -57,9 +47,19 @@ const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
           />
           <Legend />
           <ReferenceLine y={0} stroke="#6B7280" />
-          <Bar dataKey="surprise" name="Earnings Surprise" radius={[4, 4, 0, 0]}>
-            {coloredData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.fill} />
+          <Bar
+            dataKey="surprise"
+            name="Earnings Surprise"
+            radius={[4, 4, 0, 0]}
+            // fill function to color bars based on value (positive green, negative red)
+            fill="#10B981"
+            // We'll override fill dynamically in a custom shape, but for now static fill
+          >
+            {data.map((entry, index) => (
+              <cell
+                key={`cell-${index}`}
+                fill={entry.surprise >= 0 ? '#10B981' : '#EF4444'}
+              />
             ))}
           </Bar>
         </BarChart>
