@@ -1,8 +1,8 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Cell } from 'recharts';
 import { EarningsData } from '../types';
 
 type EarningsSurprisesProps = {
-  data: EarningsData[];
+  data: (EarningsData & { fill: string })[];
 };
 
 const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
@@ -48,10 +48,13 @@ const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
           <ReferenceLine y={0} stroke="#6B7280" />
           <Bar 
             dataKey="surprise" 
-            name="Earnings Surprise" 
-            fill={(data) => data.surprise >= 0 ? '#10B981' : '#EF4444'}
+            name="Earnings Surprise"
             radius={[4, 4, 0, 0]}
-          />
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.fill} />
+            ))}
+          </Bar>
         </BarChart>
       </ResponsiveContainer>
     </div>
