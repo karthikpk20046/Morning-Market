@@ -1,11 +1,4 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  Legend,
-} from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { AllocationData } from '../types';
 
 type PortfolioAllocationProps = {
@@ -40,7 +33,7 @@ const PortfolioAllocation = ({ data }: PortfolioAllocationProps) => {
               backgroundColor: '#1f2937',
               borderColor: '#374151',
               borderRadius: '0.375rem',
-              color: '#f9fafb',
+              color: '#f9fafb'
             }}
           />
         </PieChart>
