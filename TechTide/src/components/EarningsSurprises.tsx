@@ -1,9 +1,8 @@
-import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Cell } from 'recharts';
 import { EarningsData } from '../types';
 
 type EarningsSurprisesProps = {
-  data: EarningsData[];
+  data: (EarningsData & { fill: string })[];
 };
 
 const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
@@ -33,16 +32,16 @@ const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
               angle: -90,
               position: 'insideLeft',
               fill: '#9CA3AF',
-              style: { textAnchor: 'middle' },
+              style: { textAnchor: 'middle' }
             }}
           />
           <Tooltip
-            formatter={(value: number) => [`${value}%`, 'Earnings Surprise']}
+            formatter={(value) => [`${value}%`, 'Earnings Surprise']}
             contentStyle={{
               backgroundColor: '#1f2937',
               borderColor: '#374151',
               borderRadius: '0.375rem',
-              color: '#f9fafb',
+              color: '#f9fafb'
             }}
           />
           <Legend />
@@ -51,15 +50,9 @@ const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
             dataKey="surprise"
             name="Earnings Surprise"
             radius={[4, 4, 0, 0]}
-            // fill function to color bars based on value (positive green, negative red)
-            fill="#10B981"
-            // We'll override fill dynamically in a custom shape, but for now static fill
           >
             {data.map((entry, index) => (
-              <cell
-                key={`cell-${index}`}
-                fill={entry.surprise >= 0 ? '#10B981' : '#EF4444'}
-              />
+              <Cell key={`cell-${index}`} fill={entry.fill} />
             ))}
           </Bar>
         </BarChart>
