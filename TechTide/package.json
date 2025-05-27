@@ -1,7 +1,7 @@
 {
-  "name": "mocha-app",
+  "name": "morning-market",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,7 +20,6 @@
     "recharts": "^2.15.3"
   },
   "devDependencies": {
-    "@getmocha/vite-plugins": "latest",
     "@types/react": "^18.2.49",
     "@types/react-dom": "^18.2.17"
     "@vitejs/plugin-react": "^4.3.1",
