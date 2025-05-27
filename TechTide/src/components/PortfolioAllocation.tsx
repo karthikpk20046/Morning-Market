@@ -1,4 +1,11 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  Legend,
+} from 'recharts';
 import { AllocationData } from '../types';
 
 type PortfolioAllocationProps = {
@@ -23,17 +30,17 @@ const PortfolioAllocation = ({ data }: PortfolioAllocationProps) => {
             label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
             labelLine={false}
           >
-            {data.map((entry, index) => (
+            {data.map((_, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Tooltip
-            formatter={(value: number) => [`${value}`, 'Value']}
-            contentStyle={{ 
-              backgroundColor: '#1f2937', 
+            formatter={(value) => [`${value}%`, 'Allocation']}
+            contentStyle={{
+              backgroundColor: '#1f2937',
               borderColor: '#374151',
               borderRadius: '0.375rem',
-              color: '#f9fafb'
+              color: '#f9fafb',
             }}
           />
         </PieChart>
