@@ -1,4 +1,13 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 import { StockData } from '../types';
 
 type StockPerformanceProps = {
@@ -14,39 +23,45 @@ const StockPerformance = ({ data }: StockPerformanceProps) => {
           margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-          <XAxis 
-            dataKey="date" 
+          <XAxis
+            dataKey="date"
             stroke="#6B7280"
             tick={{ fill: '#9CA3AF', fontSize: 10 }}
-            tickFormatter={(date) =>
-              new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-            }
           />
-          <YAxis 
+          <YAxis
             stroke="#6B7280"
             tick={{ fill: '#9CA3AF', fontSize: 10 }}
-            label={{
-              value: 'Price (USD)', 
-              angle: -90, 
-              position: 'insideLeft', 
-              fill: '#9CA3AF',
-              fontSize: 12,
-            }}
           />
-          <Tooltip 
-            contentStyle={{ 
-              backgroundColor: '#1f2937', 
+          <Tooltip
+            contentStyle={{
+              backgroundColor: '#1f2937',
               borderColor: '#374151',
               borderRadius: '0.375rem',
-              color: '#f9fafb'
+              color: '#f9fafb',
             }}
             itemStyle={{ color: '#f9fafb' }}
             labelStyle={{ color: '#f9fafb' }}
           />
           <Legend />
-          <Line type="monotone" dataKey="TSMC" stroke="#3B82F6" activeDot={{ r: 8 }} strokeWidth={2} />
-          <Line type="monotone" dataKey="Samsung" stroke="#EF4444" strokeWidth={2} />
-          <Line type="monotone" dataKey="Tencent" stroke="#10B981" strokeWidth={2} />
+          <Line
+            type="monotone"
+            dataKey="TSMC"
+            stroke="#3B82F6"
+            activeDot={{ r: 8 }}
+            strokeWidth={2}
+          />
+          <Line
+            type="monotone"
+            dataKey="Samsung"
+            stroke="#EF4444"
+            strokeWidth={2}
+          />
+          <Line
+            type="monotone"
+            dataKey="Tencent"
+            stroke="#10B981"
+            strokeWidth={2}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
