@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
-import { Activity, BarChart3, Briefcase, Globe, Info, Mic, PieChart, RefreshCw, CircleStop } from 'lucide-react';
+import { Activity, BarChart3, Briefcase, Globe, Info, Mic, RefreshCw, CircleStop } from 'lucide-react';
 import PortfolioAllocation from './PortfolioAllocation';
 import StockPerformance from './StockPerformance';
 import EarningsSurprises from './EarningsSurprises';
