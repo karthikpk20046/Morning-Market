@@ -1,57 +1,64 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine, Cell } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  ReferenceLine,
+  Cell,
+} from 'recharts';
 import { EarningsData } from '../types';
 
 type EarningsSurprisesProps = {
-  data: (EarningsData & { fill: string })[];
+  data: EarningsData[];
 };
 
 const EarningsSurprises = ({ data }: EarningsSurprisesProps) => {
+  const coloredData = data.map(item => ({
+    ...item,
+    fill: item.surprise >= 0 ? '#10B981' : '#EF4444',
+  }));
+
   return (
     <div className="h-[300px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
+          data={coloredData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-          <XAxis 
-            dataKey="company" 
+          <XAxis
+            dataKey="company"
             stroke="#6B7280"
             tick={{ fill: '#9CA3AF' }}
           />
-          <YAxis 
+          <YAxis
             stroke="#6B7280"
             tick={{ fill: '#9CA3AF' }}
-            label={{ 
-              value: 'Surprise (%)', 
-              angle: -90, 
+            label={{
+              value: 'Surprise (%)',
+              angle: -90,
               position: 'insideLeft',
               fill: '#9CA3AF',
-              style: { textAnchor: 'middle' }
+              style: { textAnchor: 'middle' },
             }}
           />
-          <Tooltip 
-            formatter={(value) => [`${value}%`, 'Earnings Surprise']}
-            contentStyle={{ 
-              backgroundColor: '#1f2937', 
+          <Tooltip
+            formatter={value => [`${value}%`, 'Earnings Surprise']}
+            contentStyle={{
+              backgroundColor: '#1f2937',
               borderColor: '#374151',
               borderRadius: '0.375rem',
-              color: '#f9fafb'
+              color: '#f9fafb',
             }}
           />
           <Legend />
           <ReferenceLine y={0} stroke="#6B7280" />
-          <Bar 
-            dataKey="surprise" 
-            name="Earnings Surprise"
-            radius={[4, 4, 0, 0]}
-          >
-            {data.map((entry, index) => (
+          <Bar dataKey="surprise" name="Earnings Surprise" radius={[4, 4, 0, 0]}>
+            {coloredData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.fill} />
             ))}
           </Bar>
